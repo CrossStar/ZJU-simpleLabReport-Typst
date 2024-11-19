@@ -21,6 +21,6 @@
 * 下载本模板后，直接在 `main.typ` 中进行文档的编写即可
 
 ## 效果展示
-![](https://raw.githubusercontent.com/CrossStar/figure/master/main1.svg)
+![](https://raw.githubusercontent.com/CrossStar/figure/master/main_page-0001.jpg)
 
-![](https://raw.githubusercontent.com/CrossStar/figure/master/main2.svg)
+![](https://raw.githubusercontent.com/CrossStar/figure/master/main_page-0002.jpg)
