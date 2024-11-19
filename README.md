@@ -20,6 +20,14 @@
 
 * 下载本模板后，直接在 `main.typ` 中进行文档的编写即可
 
+### 推荐阅读
+
+* [Typst 官方文档](https://typst.app/docs/)
+* [Typst 中文社区导航](https://typst-doc-cn.github.io/guide/)
+* [The Raindrop-Blue Book（小蓝书）](https://typst-doc-cn.github.io/tutorial/)
+* [Typst-example-book](https://sitandr.github.io/typst-examples-book/book/basics/)
+* [Awsome Typst 中文版](https://github.com/qjcg/awesome-typst/blob/main/README_ZH.md)
+
 ## 效果展示
 ![](https://raw.githubusercontent.com/CrossStar/figure/master/main_page-0001.jpg)
 
