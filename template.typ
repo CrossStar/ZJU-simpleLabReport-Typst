@@ -1,11 +1,13 @@
 #import "@preview/cuti:0.2.1": show-cn-fakebold
-#import "@preview/unify:0.6.0": qty
 #import "@preview/mitex:0.2.4": *
+#import "@preview/i-figured:0.2.4"
 
 #let noindent() = h(-2em)
 #let toprule() = table.hline(stroke: 1pt)
 #let midrule() = table.hline(stroke: 0.5pt)
 #let bottomrule() = table.hline(stroke: 1pt)
+#let mathrm(x) = math.upright(x)
+#let mathbf(x) = math.bold(math.upright(x))
 
 #let first_page(config: (:), it) = {
     set text(size: 9.5pt)
@@ -50,21 +52,40 @@
 
 /* -------------------------------------------------------------------------- */
   // 设置公式引用编号，样式为：“公式 (x)”
-  show ref: it => {
-  let eq = math.equation
-  let el = it.element
-  if el != none and el.func() == eq {
-      link(el.location(),numbering(
-        "公式 "+el.numbering,
-        ..counter(eq).at(el.location())
-      ))
-    } else {
-      it
-    }
-  }
+  // show ref: it => {
+  // let eq = math.equation
+  // let el = it.element
+  // if el != none and el.func() == eq {
+  //     link(el.location(),numbering(
+  //       "公式 "+el.numbering,
+  //       ..counter(eq).at(el.location())
+  //     ))
+  //   } else {
+  //     it
+  //   }
+  // }
 
-  // 设置公式编号为 (x)
-  set math.equation(numbering: "(1)")
+  // // 设置公式编号为 (x)
+  // set math.equation(numbering: "(1)")
+
+  // // 设置数学公式标签为 <-> 不编号
+  // show math.equation.where(block: true): it => {
+  // if it.has("label") {
+  //   if "-" == str(it.label) {
+  //     counter(math.equation).update(n => n - 1)
+  //     math.equation(it.body, block: true, numbering: none)
+  //     return
+  //   } else if "::" in str(it.label) {
+  //     let (a, b) = str(it.label).split("::")
+  //     counter(math.equation).update(n => n - 2)
+  //     [#math.equation(it.body, block: true, numbering: _ => "(" + b + ")")#label(a)]
+  //     return
+  //   }
+  // }
+  // it
+  // }
+  // 
+  show math.equation: i-figured.show-equation.with(only-labeled: true)
 /* -------------------------------------------------------------------------- */
 // 设置图表标题格式
   set figure.caption(
@@ -128,4 +149,5 @@
   show: first_page.with(config: config)
   it
 }
+
 

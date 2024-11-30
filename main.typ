@@ -1,5 +1,5 @@
 #import "template.typ": *
-#import "@preview/subpar:0.1.1"
+// #import "@preview/subpar:0.1.1"
 #let my_config = (
     学号: "1234567890",
     姓名: "这里是姓名",
@@ -28,22 +28,32 @@ Typst 是一款基于 Rust 的新型排版语言，其实时性能和强大的�
   caption: "这里是图片标题",
 )
 
-如果你还想实现子图布局，可以使用 `subpar` 来实现，
-#subpar.grid(
-  figure(image("figures/test.jpg"), caption: [
-    这里是子图 1 的标题
-  ]), <a>,
-  figure(image("figures/test.jpg"), caption: [
-    这里是子图 2 的标题
-  ]), <b>,
-  columns: (1fr, 1fr),
-  caption: [
-    这里是整个图片的标题
-  ],
-  label: <figure_label>
-)
+// 如果你还想实现子图布局，可以使用 `subpar` 来实现，
+// #subpar.grid(
+//   figure(image("figures/test.jpg"), caption: [
+//     这里是子图 1 的标题
+//   ]), <a>,
+//   figure(image("figures/test.jpg"), caption: [
+//     这里是子图 2 的标题
+//   ]), <b>,
+//   columns: (1fr, 1fr),
+//   caption: [
+//     这里是整个图片的标题
+//   ],
+//   label: <figure_label>
+// )
 
-如果你想对图片进行引用，可以使用 `@` 符号来实现，比如@figure_label 是整个图片的标签，而 @a 和 @b 是子图的标签。
+注意：现在子图不建议使用 `subpar` 来实现，目前 `subpar` 似乎会导致 `Tinymist` 内存泄漏。推荐使用下面的方式进行子图布局，你可以将它添加到自己的 VSCode Snippets 中：
+
+#figure(
+  grid(columns: 2, gutter: 10pt,
+    figure(numbering: none, image("figures/test.jpg"), caption: [(a) 这里是子图 1 的标题]),
+    figure(numbering: none, image("figures/test.jpg"), caption: [(b) 这里是子图 2 的标题]),
+  ),
+  caption: "这里是整个图片的标题",
+)<figure_label>
+
+如果你想对图片进行引用，可以使用 `@` 符号来实现，比如@figure_label 是整个图片的标签。而 @figure_label (a) 和 @figure_label (b) 分别是子图 1 和子图 2 的标签。
 
 === 如何插入表格？
 
@@ -75,11 +85,18 @@ Typst 是一款基于 Rust 的新型排版语言，其实时性能和强大的�
 == 如何插入公式？
 
 行间公式使用 `$$` 符号，两边不加空格，比如：$a^2 + b^2 = c^2$ 是勾股定理。而行内公式同样使用 `$$` 符号，但是两边加空格，比如：
-$ frac(diff  Psi  ^(\*),diff  t )Psi  + Psi  ^(\*)frac(diff  Psi  ,diff  t )&= - frac(i planck.reduce  ,2 m )lr(\( frac(diff  ^(2 ),diff  x ^(2 ))Psi  ^(\*)\) )Psi  + frac(i ,planck.reduce  )V Psi  ^(\*)Psi  - Psi  ^(\*)frac(i ,planck.reduce  )V Psi  + Psi  ^(\*)frac(i planck.reduce  ,2 m )lr(\( frac(diff  ^(2 ),diff  x ^(2 ))Psi  \) )\ &= - frac(i planck.reduce  ,2 m )lr(\( frac(diff  ^(2 ),diff  x ^(2 ))Psi  ^(\*)\) )Psi  + Psi  ^(\*)frac(i planck.reduce  ,2 m )lr(\( frac(diff  ^(2 ),diff  x ^(2 ))Psi  \) )\ &= frac(i planck.reduce  ,2 m )frac(diff  ,diff  x )lr(\( Psi  ^(\*)frac(diff  ,diff  x )Psi  - Psi  frac(diff  ,diff  x )Psi  ^(\*)\) )\ $<eq_typst>
+$
+frac(diff  Psi  ^(\*),diff  t )Psi  + Psi  ^(\*)frac(diff  Psi  ,diff  t )&= - frac(i planck.reduce  ,2 m )lr(\( frac(diff  ^(2 ),diff  x ^(2 ))Psi  ^(\*)\) )Psi  + frac(i ,planck.reduce  )V Psi  ^(\*)Psi  - Psi  ^(\*)frac(i ,planck.reduce  )V Psi  + Psi  ^(\*)frac(i planck.reduce  ,2 m )lr(\( frac(diff  ^(2 ),diff  x ^(2 ))Psi  \) )\ &= - frac(i planck.reduce  ,2 m )lr(\( frac(diff  ^(2 ),diff  x ^(2 ))Psi  ^(\*)\) )Psi  + Psi  ^(\*)frac(i planck.reduce  ,2 m )lr(\( frac(diff  ^(2 ),diff  x ^(2 ))Psi  \) )\ &= frac(i planck.reduce  ,2 m )frac(diff  ,diff  x )lr(\( Psi  ^(\*)frac(diff  ,diff  x )Psi  - Psi  frac(diff  ,diff  x )Psi  ^(\*)\) )\
+$<eq_typst>
 
 #noindent() 式中，$planck.reduce$ 是普朗克常数。（我们可以使用`#noindent` 来取消缩进）
 
-公式的引用同样使用`@` 符号，比如 @eq_typst 可以用来引用这个公式。
+现在改为使用 `i-figure` 来控制公式的编号，现在如果某个公式后没有标签，那么这个公式就不会被编号，比如：
+$
+cal(F )\(f \)\(mathbf(k ) \)= hat(f )\(mathbf(k ) \)= integral  _(bb(R ) ^(d ))f \(mathbf(x ) \)thick  e ^(- 2 pi  i mathbf(k ) dot.c  mathbf(x ) )thick  upright(d ) mathbf(x )
+$
+
+公式的引用同样使用`@` 符号，比如 @eqt:eq_typst 可以用来引用这个公式。
 
 /* -------------------------------------------------------------------------- */
 // 这里请忽略
@@ -108,7 +125,7 @@ $ frac(diff  Psi  ^(\*),diff  t )Psi  + Psi  ^(\*)frac(diff  Psi  ,diff  t )&= -
 f(t)={\mathcal {L}}^{-1}\{F\}(t)={\frac {1}{2\pi i}}\lim _{T\to \infty }\int _{\gamma -iT}^{\gamma +iT}e^{st}F(s)\,\mathrm {d} s
 `)<eq_tex>
 
-#noindent() 同样，@eq_tex 可以用来引用这个公式。
+#noindent() 同样，@eqt:eq_tex 可以用来引用这个公式。
 
 或者你可以使用 #link("https://mitex-rs.github.io/mitex/")，或者#link("https://mitex-rs.github.io/mitex/", "mitex convertor") 来将 #LaTeX 公式转换为 Typst 公式。
 
