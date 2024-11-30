@@ -29,6 +29,6 @@
 * [Awsome Typst 中文版](https://github.com/qjcg/awesome-typst/blob/main/README_ZH.md)
 
 ## 效果展示
-![](https://raw.githubusercontent.com/CrossStar/figure/master/main_page-0001.jpg)
+![](https://raw.githubusercontent.com/CrossStar/figure/master/202411301600214.jpg)
 
-![](https://raw.githubusercontent.com/CrossStar/figure/master/main_page-0002.jpg)
+![](https://raw.githubusercontent.com/CrossStar/figure/master/202411301600215.jpg)
