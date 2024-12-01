@@ -1,6 +1,7 @@
 #import "@preview/cuti:0.2.1": show-cn-fakebold
 #import "@preview/mitex:0.2.4": *
 #import "@preview/i-figured:0.2.4"
+#import "@preview/numbly:0.1.0": *
 
 #let noindent() = h(-2em)
 #let toprule() = table.hline(stroke: 1pt)
@@ -97,39 +98,21 @@
 ): set figure.caption(position: top)
 /* -------------------------------------------------------------------------- */
   // 设置标题样式
-  set heading(numbering: "1. 1. 1.  ")
-  let h1 = counter(heading.where(level: 1))
-  show heading.where(
-    level: 1
-  ): it => [
-    #v(25pt, weak: true)
-    #set align(center)
-    #set text(size: 14pt)
-    #show: show-cn-fakebold
-    #h1.display("1    ") #it.body
-    #v(25pt, weak: true)
-  ]
-  show heading.where(
-    level: 2
-  ): it => [
-    #v(20pt, weak: true)
-    #set text(size: 12pt)
-    #show: show-cn-fakebold
-    #set heading(level: 2, numbering: "1.1.1.")
-    #it
-    #v(20pt, weak: true)
-  ]
+  set heading(numbering: numbly(
+    "{1}    ",
+    "{1}. {2}. ",
+    "{1}. {2}. {3}. "
+    )
+  )
+  show heading.where(level: 1): it => {
+    set align(center)
+    set block(below: 2em, above: 2em)
+    it
+  }
+  show heading.where(level: 2): set block(below: 1em, above: 1em)
+  show heading.where(level: 3): set block(below: 1em, above: 1em)
+  show heading: show-cn-fakebold
 
-  show heading.where(
-    level: 3
-  ): it => [
-    #v(20pt, weak: true)
-    #set text(size: 10.5pt)
-    #show: show-cn-fakebold
-    #set heading(level: 3, numbering: "1.1.1.")
-    #it
-    #v(20pt, weak: true)
-  ]
 /* -------------------------------------------------------------------------- */
   //设置字体
   set text(font: ("Times New Roman", "SimSun"), size: 10.5pt, lang: "zh")
