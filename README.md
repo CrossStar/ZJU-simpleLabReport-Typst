@@ -20,6 +20,8 @@
 
 * 下载本模板后，直接在 `main.typ` 中进行文档的编写即可
 
+* 你可以仿照[使用外部库](https://typst-doc-cn.github.io/tutorial/basic/modulize-packages.html)中 “构建和注册本地库” 的内容把本模板添加到本地 local 库中，从而无需在每一个文件夹下都放置一份模板文件
+
 ### 推荐阅读
 
 * [Typst 官方文档](https://typst.app/docs/)
