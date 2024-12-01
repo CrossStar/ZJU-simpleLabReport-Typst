@@ -106,13 +106,22 @@
   )
   show heading.where(level: 1): it => {
     set align(center)
-    set block(below: 2em, above: 2em)
+    set text(size: 14pt)
+    set block(below: 25pt, above: 25pt)
     it
   }
-  show heading.where(level: 2): set block(below: 1em, above: 1em)
-  show heading.where(level: 3): set block(below: 1em, above: 1em)
+  show heading.where(level: 2): it => {
+    set block(below: 15pt, above: 15pt)
+    set text(12pt)
+    it
+  }
+  show heading.where(level: 3): it => {
+    set block(below: 15pt, above: 15pt)
+    set text(10.5pt)
+    it
+  }
   show heading: show-cn-fakebold
-
+  
 /* -------------------------------------------------------------------------- */
   //设置字体
   set text(font: ("Times New Roman", "SimSun"), size: 10.5pt, lang: "zh")
